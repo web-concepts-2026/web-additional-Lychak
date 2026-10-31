@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Server</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Hello from socket server</h1>
+  <p><a href="/page?id=5">/page?id=5</a></p>
+  <p><a href="/items">/items</a></p>
+
+  <h2>Add item (POST)</h2>
+  <input id="name" placeholder="Name">
+  <button onclick="sendPost()">Send</button>
+  <p id="result"></p>
+
+  <script>
+    function sendPost() {
+      fetch("/items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: document.getElementById("name").value })
+      })
+        .then(res => res.text())
+        .then(text => document.getElementById("result").textContent = text);
+    }
+  </script>
+</body>
+</html>
